@@ -1,8 +1,10 @@
 version: "3.9"
 
 networks:
-  pg_net:    # isolated network for PostgreSQL
+  pg_net:  # isolated network for PostgreSQL
+    driver: bridge  
   my_net:    # isolated network for MySQL/MariaDB
+    driver: bridge
 
 services:
 
@@ -23,7 +25,6 @@ services:
   mysql:
     image: mysql:latest
     container_name: mysql_lab
-    command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_PASSWORD: bob12
       MYSQL_DATABASE: sandbox
