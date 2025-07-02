@@ -1,0 +1,20 @@
+# Ignore Docker named volume folders if they ever appear
+postgres/data/
+mysql/data/
+
+# Ignore all database dumps and temp files
+*.sql~
+*.log
+*.tmp
+
+# Ignore VS Code settings and workspace files
+.vscode/
+*.code-workspace
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore Python cache if you use Python scripts
+__pycache__/
+*.pyc

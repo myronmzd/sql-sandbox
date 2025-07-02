@@ -1,0 +1,41 @@
+version: "3.9"
+
+networks:
+  pg_net:    # isolated network for PostgreSQL
+  my_net:    # isolated network for MySQL/MariaDB
+
+services:
+
+  postgres:
+    image: postgres:latest
+    container_name: pg_lab
+    environment:
+      POSTGRES_USER: bob
+      POSTGRES_PASSWORD: bob12
+      POSTGRES_DB: sandbox
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+      - ./postgres/init:/docker-entrypoint-initdb.d   # auto‑execute .sql here
+    networks: [pg_net]
+
+  mysql:
+    image: mysql:latest
+    container_name: mysql_lab
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: bob12
+      MYSQL_DATABASE: sandbox
+      MYSQL_USER: bob
+      MYSQL_PASSWORD: bob12
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysql/init:/docker-entrypoint-initdb.d       # auto‑execute .sql here
+    networks: [my_net]
+
+volumes:
+  pg_data:
+  mysql_data:
